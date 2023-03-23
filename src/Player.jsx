@@ -1,21 +1,15 @@
-import {
-  CameraControls,
-  OrbitControls,
-  useAnimations,
-} from "@react-three/drei";
+import { OrbitControls, useAnimations } from "@react-three/drei";
 import { useFrame, useLoader, useThree } from "@react-three/fiber";
 import React, { useEffect, useRef } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { useInput } from "./hooks/userInput";
 import player from "./model/player.glb";
-import { Debug, useBox, useSphere } from "@react-three/cannon";
+import { useBox } from "@react-three/cannon";
 import { Quaternion, Vector3 } from "three";
-import CANNON from "cannon-es";
 
-export default function Player({ property }) {
+export default function Player() {
   const model = useLoader(GLTFLoader, player);
   const { actions } = useAnimations(model.animations, model.scene);
-  console.log(model.scene);
   const { forward, backward, left, right } = useInput();
 
   const { camera } = useThree();
@@ -23,7 +17,6 @@ export default function Player({ property }) {
   // Set the current World position
 
   // Set the direction of the character
-  // const halfExtents = new CANNON.Vec3(2, 2, 2);
 
   const [mesh, api] = useBox(() => ({
     args: [1, 1, 1],
@@ -60,7 +53,7 @@ export default function Player({ property }) {
     }
 
     // actions.walking.play();
-  }, [forward, backward, right, left]);
+  }, [forward, backward, right, left, actions]);
 
   function directionOffset({ forward, backward, right, left }) {
     var directionOffset = 0; // w
@@ -97,16 +90,6 @@ export default function Player({ property }) {
   const rotateAngle = new Vector3(0, 1, 0);
   let walkdirection = new Vector3(0, 0, 0);
   let cameraTarget = new Vector3(0, 0, 0);
-  let frontVector = new Vector3(0, 0, 0);
-  let sideVector = new Vector3(0, 0, 0);
-  let direction = new Vector3(0, 0, 0);
-
-  // frontVector.set(0, 0, Number(forward) - Number(backward));
-  // sideVector.set(Number(right) - Number(left), 0, 0);
-  // direction.subVectors(frontVector, sideVector).normalize().multiplyScalar(1);
-  // api.velocity.set(direction.x, 0, direction.z);
-
-  console.log("api", api);
 
   function cameraTargetUpdate(moveX, moveZ) {
     camera.position.z += moveZ;
@@ -132,7 +115,6 @@ export default function Player({ property }) {
     // mesh.current.getWorldPosition(orbitRef.current.target);
     // meshRef.current.getWorldPosition(camera.position);
 
-    const cameraOffset = new Vector3(0.0, 3.0, -2.0); // NOTE Constant offset between the camera and the target
     if (
       currentAction.current === "walking" ||
       currentAction.current === "running"
@@ -192,7 +174,7 @@ export default function Player({ property }) {
   );
 }
 function Cube(props) {
-  const [ref, api] = useBox(() => ({
+  const [ref] = useBox(() => ({
     args: [1, 1, 1],
     mass: 1,
     position: [3, 2, 0],

@@ -1,12 +1,7 @@
-import { OrbitControls, PerspectiveCamera, useHelper } from "@react-three/drei";
-import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
-import { useEffect, useRef, useState } from "react";
-import { DirectionalLight, DirectionalLightHelper } from "three";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import Cylinder3d from "./Cylinder3d";
-import Plane3d from "./Plane3d";
+import { Canvas } from "@react-three/fiber";
+
 import Player from "./Player";
-import { Debug, Physics } from "@react-three/cannon";
+import { Physics } from "@react-three/cannon";
 import Plane3DVelocity from "./model/Plane3DVelocity";
 import CubePyical from "./Cube";
 
@@ -46,42 +41,42 @@ import CubePyical from "./Cube";
 //   );
 // };
 
-function CameraHelper() {
-  const camera = useThree((state) => state.camera);
-  const cameraRef = useRef();
+// function CameraHelper() {
+//   const camera = useThree((state) => state.camera);
+//   const cameraRef = useRef();
 
-  useFrame(() => {
-    // cameraRef.current.updateMatrixWorld();
-  });
+//   useFrame(() => {
+//     // cameraRef.current.updateMatrixWorld();
+//   });
 
-  return <cameraHelper args={[camera]} ref={cameraRef} />;
-}
+//   return <cameraHelper args={[camera]} ref={cameraRef} />;
+// }
 
-function DirectionalHelper() {
-  const light = useRef();
+// function DirectionalHelper() {
+//   const light = useRef();
 
-  useHelper(light, DirectionalLightHelper, 5, "red");
+//   useHelper(light, DirectionalLightHelper, 5, "red");
 
-  return (
-    <>
-      <ambientLight intensity={0.3} />
-      <directionalLight ref={light} position={[0, 10, 0]} castShadow />
-    </>
-  );
-}
+//   return (
+//     <>
+//       <ambientLight intensity={0.3} />
+//       <directionalLight ref={light} position={[0, 10, 0]} castShadow />
+//     </>
+//   );
+// }
 
-function DirectionalHelper2() {
-  const light = useRef();
+// function DirectionalHelper2() {
+//   const light = useRef();
 
-  useHelper(light, DirectionalLightHelper, 5, "red");
+//   useHelper(light, DirectionalLightHelper, 5, "red");
 
-  return (
-    <>
-      <ambientLight intensity={1} />
-      <directionalLight ref={light} position={[10, 10, 0]} castShadow />
-    </>
-  );
-}
+//   return (
+//     <>
+//       <ambientLight intensity={1} />
+//       <directionalLight ref={light} position={[10, 10, 0]} castShadow />
+//     </>
+//   );
+// }
 
 function App() {
   return (

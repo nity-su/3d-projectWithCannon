@@ -1,19 +1,9 @@
 import React from "react";
-import { Physics, useBox, usePlane, useSphere } from "@react-three/cannon";
+import { useBox, useSphere } from "@react-three/cannon";
 /**
  * @see https://www.npmjs.com/package/@react-three/cannon
  *
  */
-
-function Plane(props) {
-  const [ref] = usePlane(() => ({ rotation: [-Math.PI / 2, 0, 0], ...props }));
-  return (
-    <mesh ref={ref}>
-      <planeGeometry args={[100, 100]} />
-      <meshBasicMaterial color="pink" />
-    </mesh>
-  );
-}
 
 function Cube(props) {
   const [ref] = useBox(() => ({ mass: 1, ...props }));
